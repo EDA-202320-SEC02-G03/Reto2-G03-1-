@@ -62,11 +62,17 @@ def new_data_structs():
 
     
     data_structs = {'scorers': None,
-                    'tournaments': None,
-                    'teams': None,
+                    'home': None,
+                    'away': None,
                     }
     
     data_structs['scorers'] = mp.newMap(1000,
+                                   maptype='CHAINING',
+                                   loadfactor=4)
+    data_structs['home'] = mp.newMap(1000,
+                                   maptype='CHAINING',
+                                   loadfactor=4)
+    data_structs['away'] = mp.newMap(1000,
                                    maptype='CHAINING',
                                    loadfactor=4)
     a = [datos, data_structs]
@@ -113,19 +119,41 @@ def new_scorer(scorer):
     entry['partidos'] = lt.newList('ARRAY_LIST')
     return entry
 
-def add_team(data_structs, team):
-    data_structs = data_structs[1]
-    teams = data_structs['teams']
-    linea = team['home']
-    existe = mp.contains(teams, linea)
+def add_home(data_structs, home_team):
+    team = data_structs['home']
+    linea = home_team['home_team']
+    existe = mp.contains(team, linea)
     if existe:
-        pareja = mp.get(teams, linea)
+        pareja = mp.get(team, linea)
         valor = me.getValue(pareja)
     else:
-        valor = new_scorer(linea)
-        mp.put(teams, linea, valor)
+        valor = new_home(linea)
+        mp.put(team, linea, valor)
     lt.addLast(valor["partidos"],team)
 
+def new_home(home_team):
+    entry = {'home_team': "", "partidos": None}
+    entry['home_team'] = home_team
+    entry['partidos'] = lt.newList('ARRAY_LIST')
+    return entry
+
+def add_away(data_structs, away_team):
+    team = data_structs['away']
+    linea = away_team['away_team']
+    existe = mp.contains(team, linea)
+    if existe:
+        pareja = mp.get(team, linea)
+        valor = me.getValue(pareja)
+    else:
+        valor = new_away(linea)
+        mp.put(team, linea, valor)
+    lt.addLast(valor["partidos"],team)
+
+def new_away(away_team):
+    entry = {'away_team': "", "partidos": None}
+    entry['away_team'] = away_team
+    entry['partidos'] = lt.newList('ARRAY_LIST')
+    return entry
 # Funciones para creacion de datos
 
 def new_data(id, info):

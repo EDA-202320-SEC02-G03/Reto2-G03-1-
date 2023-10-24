@@ -164,7 +164,7 @@ if __name__ == "__main__":
             data = load_first(control)
             sorteado = controller.sort_fecha(control)
             load_data(control, sorteado[0])
-            print(control["model"][1])
+            print(control["model"][1]['away'])
         elif int(inputs) == 2:
             print_req_1(control)
 

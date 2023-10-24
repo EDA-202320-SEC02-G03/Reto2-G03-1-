@@ -62,7 +62,9 @@ def load_data(control, goles, memflag=True):
         start_memory = get_memory()
     
     loadscorers(data_structs,goles)
-    
+    loadhome(data_structs,goles)
+    loadaway(data_structs,goles)
+
     # toma el tiempo al final del proceso
     stop_time = get_time()
     # calculando la diferencia en tiempo
@@ -104,6 +106,14 @@ def loadShootout(new_data_structs, filename):
 def loadscorers(data_structs,goles):
     for cada_uno in lt.iterator(goles):
         model.add_scorer(data_structs, cada_uno)
+
+def loadhome(data_structs, goles):
+    for cada_uno in lt.iterator(goles):
+        model.add_home(data_structs, cada_uno)
+
+def loadaway(data_structs, goles):
+    for cada_uno in lt.iterator(goles):
+        model.add_away(data_structs, cada_uno)
 # Funciones de ordenamiento
 
 def sort(control):
