@@ -210,16 +210,26 @@ def req_1(data_structs, matches, team, condition):
     """
     if condition == 'home':
         a = mp.get(data_structs['home'], team)
-        b = me.getValue(a)
-        return b
+        b = lt.subList(me.getValue(a)['partidos'],1,matches)
+        
+    elif condition == 'away':
+        a = mp.get(data_structs['away'], team)
+        b = lt.subList(me.getValue(a)['partidos'],1,matches)
+    
+    return b
 
-
-def req_2(data_structs):
+def req_2(data_structs, scores, player_name):
     """
     Función que soluciona el requerimiento 2
     """
-    # TODO: Realizar el requerimiento 2
-    pass
+    a = mp.get(data_structs['scorers'],player_name)
+    b = me.getValue(a)['partidos']
+    lon = lt.size(b)
+    x = lon - scores
+    c = lt.subList(b, x, scores)
+    return c
+    
+    
 
 
 def req_3(data_structs):

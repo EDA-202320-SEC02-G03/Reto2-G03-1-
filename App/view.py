@@ -97,9 +97,10 @@ def print_req_2(control):
     """
         Función que imprime la solución del Requerimiento 2 en consola
     """
-    # TODO: Imprimir el resultado del requerimiento 2
-    pass
-
+    scores = int(input("Number of scores: "))
+    player_name = input("Player name: ")
+    a = controller.req_2(control, scores, player_name)
+    return print(a)
 
 def print_req_3(control):
     """
