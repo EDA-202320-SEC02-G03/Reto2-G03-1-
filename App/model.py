@@ -64,6 +64,7 @@ def new_data_structs():
     data_structs = {'scorers': None,
                     'home': None,
                     'away': None,
+                    'tournament': None
                     }
     
     data_structs['scorers'] = mp.newMap(1000,
@@ -73,6 +74,9 @@ def new_data_structs():
                                    maptype='CHAINING',
                                    loadfactor=4)
     data_structs['away'] = mp.newMap(1000,
+                                   maptype='CHAINING',
+                                   loadfactor=4)
+    data_structs['tournament'] = mp.newMap(1000,
                                    maptype='CHAINING',
                                    loadfactor=4)
     a = [datos, data_structs]
@@ -152,6 +156,24 @@ def add_away(data_structs, away_team):
 def new_away(away_team):
     entry = {'away_team': "", "partidos": None}
     entry['away_team'] = away_team
+    entry['partidos'] = lt.newList('ARRAY_LIST')
+    return entry
+
+def add_tournament(data_structs, tournament):
+    team = data_structs['tournament']
+    linea = tournament['tournament']
+    existe = mp.contains(team, linea)
+    if existe:
+        pareja = mp.get(team, linea)
+        valor = me.getValue(pareja)
+    else:
+        valor = new_tournament(linea)
+        mp.put(team, linea, valor)
+    lt.addLast(valor["partidos"],team)
+
+def new_tournament(tournament):
+    entry = {'tournament': "", "partidos": None}
+    entry['tournament'] = tournament
     entry['partidos'] = lt.newList('ARRAY_LIST')
     return entry
 # Funciones para creacion de datos

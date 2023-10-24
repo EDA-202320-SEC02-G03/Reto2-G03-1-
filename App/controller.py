@@ -49,7 +49,7 @@ def load_first(control, filename):
     loadResults(datos, filename)
     loadShootout(datos, filename)
 
-def load_data(control, goles, memflag=True):
+def load_data(control, goles, results, memflag=True):
     """
     Carga los datos del reto
     """
@@ -62,8 +62,9 @@ def load_data(control, goles, memflag=True):
         start_memory = get_memory()
     
     loadscorers(data_structs,goles)
-    loadhome(data_structs,goles)
-    loadaway(data_structs,goles)
+    loadhome(data_structs,results)
+    loadaway(data_structs,results)
+    loadtournament(data_structs, results)
 
     # toma el tiempo al final del proceso
     stop_time = get_time()
@@ -107,13 +108,17 @@ def loadscorers(data_structs,goles):
     for cada_uno in lt.iterator(goles):
         model.add_scorer(data_structs, cada_uno)
 
-def loadhome(data_structs, goles):
-    for cada_uno in lt.iterator(goles):
+def loadhome(data_structs, results):
+    for cada_uno in lt.iterator(results):
         model.add_home(data_structs, cada_uno)
 
-def loadaway(data_structs, goles):
-    for cada_uno in lt.iterator(goles):
+def loadaway(data_structs, results):
+    for cada_uno in lt.iterator(results):
         model.add_away(data_structs, cada_uno)
+
+def loadtournament(data_structs, results):
+    for cada_uno in lt.iterator(results):
+        model.add_tournament(data_structs, cada_uno)
 # Funciones de ordenamiento
 
 def sort(control):

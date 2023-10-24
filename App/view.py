@@ -62,11 +62,11 @@ def print_menu():
     print("0- Salir")
 
 
-def load_data(control, goles):
+def load_data(control, goles, results):
     """
     Carga los datos
     """
-    return controller.load_data(control, goles) 
+    return controller.load_data(control, goles, results) 
 
 def load_first(control):
     """
@@ -163,8 +163,8 @@ if __name__ == "__main__":
             print("Cargando información de los archivos ....\n")
             data = load_first(control)
             sorteado = controller.sort_fecha(control)
-            load_data(control, sorteado[0])
-            print(control["model"][1]['away'])
+            load_data(control, sorteado[0], sorteado[1])
+            print(control["model"][1]['tournament'])
         elif int(inputs) == 2:
             print_req_1(control)
 
