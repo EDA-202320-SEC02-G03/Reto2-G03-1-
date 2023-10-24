@@ -35,18 +35,46 @@ def new_controller():
     """
     Crea una instancia del modelo
     """
-    #TODO: Llamar la función del modelo que crea las estructuras de datos
-    pass
+    control = {
+        'model': None
+    }
+    control['model'] = model.new_data_structs()
+    return control
 
 
 # Funciones para la carga de datos
 
-def load_data(control, filename):
+def load_data(control, filename, memflag=True):
     """
     Carga los datos del reto
     """
-    # TODO: Realizar la carga de datos
-    pass
+    start_time = get_time()
+
+    # inicializa el proceso para medir memoria
+    if memflag is True:
+        tracemalloc.start()
+        start_memory = get_memory()
+
+    
+
+    # toma el tiempo al final del proceso
+    stop_time = get_time()
+    # calculando la diferencia en tiempo
+    deltatime = delta_time(stop_time, start_time)
+
+    # finaliza el proceso para medir memoria
+    if memflag is True:
+        stop_memory = get_memory()
+        tracemalloc.stop()
+        # calcula la diferencia de memoria
+        deltamemory = delta_memory(stop_memory, start_memory)
+        # respuesta con los datos de tiempo y memoria
+        return deltatime, deltamemory
+
+    else:
+        # respuesta sin medir memoria
+        return deltatime
+
 
 
 # Funciones de ordenamiento

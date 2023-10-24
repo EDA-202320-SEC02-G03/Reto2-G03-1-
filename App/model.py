@@ -51,8 +51,23 @@ def new_data_structs():
     Inicializa las estructuras de datos del modelo. Las crea de
     manera vacía para posteriormente almacenar la información.
     """
-    #TODO: Inicializar las estructuras de datos
-    pass
+    data_structs = {'scorer': None,
+                    'tournament': None,
+                    'teams': None,
+                    }
+    
+    data_structs['scorer'] = mp.newMap(10000,
+                                   maptype='CHAINING',
+                                   loadfactor=4)
+
+    data_structs['tournament'] = mp.newMap(10000,
+                                   maptype='CHAINING',
+                                   loadfactor=4)
+
+    data_structs['teams'] = mp.newMap(10000,
+                                   maptype='CHAINING',
+                                   loadfactor=4)
+    return data_structs
 
 
 # Funciones para agregar informacion al modelo
@@ -64,7 +79,17 @@ def add_data(data_structs, data):
     #TODO: Crear la función para agregar elementos a una lista
     pass
 
-
+def add_scorer(data_structs):
+    scorer = data_structs['scorer']
+    existe = mp.contains(years, pubyear)
+    #existe retorna True o False
+    if existe:
+        entry = mp.get(years, pubyear)
+        year = me.getValue(entry)
+    else:
+         year = newYear(pubyear)
+        mp.put(years, pubyear, year)
+    lt.addLast(year['books'], book)
 # Funciones para creacion de datos
 
 def new_data(id, info):
