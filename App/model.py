@@ -51,24 +51,27 @@ def new_data_structs():
     Inicializa las estructuras de datos del modelo. Las crea de
     manera vacía para posteriormente almacenar la información.
     """
+    datos = {'goles': None,
+               'results': None,
+               'shootout': None}
+
+    datos['goles'] = lt.newList("ARRAY_LIST")
+    datos['results'] = lt.newList("ARRAY_LIST")
+    datos['shootout'] = lt.newList("ARRAY_LIST")
+    
+
+    
     data_structs = {'scorers': None,
                     'tournaments': None,
                     'teams': None,
                     }
     
-    data_structs['scorers'] = mp.newMap(10000,
+    data_structs['scorers'] = mp.newMap(1000,
                                    maptype='CHAINING',
                                    loadfactor=4)
-
-    data_structs['tournaments'] = mp.newMap(10000,
-                                   maptype='CHAINING',
-                                   loadfactor=4)
-
-    data_structs['teams'] = mp.newMap(10000,
-                                   maptype='CHAINING',
-                                   loadfactor=4)
-    return data_structs
-
+    a = [datos, data_structs]
+    return a
+    
 
 # Funciones para agregar informacion al modelo
 
@@ -79,15 +82,49 @@ def add_data(data_structs, data):
     #TODO: Crear la función para agregar elementos a una lista
     pass
 
+def add_goles(new_data_structs, goals):
+    lt.addLast(new_data_structs['goles'], goals)
+    return new_data_structs
+
+def add_results(new_data_structs, results):
+    lt.addLast(new_data_structs['results'], results)
+    return new_data_structs
+
+def add_shootout (new_data_structs, shootout):
+    lt.addLast(new_data_structs['shootout'], shootout)
+    return new_data_structs
+
 def add_scorer(data_structs, scorer):
     scorers = data_structs['scorers']
-    existe = mp.contains(scorers, scorer)
+    linea = scorer['scorer']
+    existe = mp.contains(scorers, linea)
     #existe retorna True o False
     if existe:
-        pareja = mp.get(scorers, scorer)
+        pareja = mp.get(scorers, linea)
         valor = me.getValue(pareja)
     else:
-        mp.put(scorers, scorer, year)
+        valor = new_scorer(linea)
+        mp.put(scorers, linea, valor)
+    lt.addLast(valor["partidos"],scorer)
+
+def new_scorer(scorer):
+    entry = {'scorer': "", "partidos": None}
+    entry['scorer'] = scorer
+    entry['partidos'] = lt.newList('ARRAY_LIST')
+    return entry
+
+def add_team(data_structs, team):
+    data_structs = data_structs[1]
+    teams = data_structs['teams']
+    linea = team['home']
+    existe = mp.contains(teams, linea)
+    if existe:
+        pareja = mp.get(teams, linea)
+        valor = me.getValue(pareja)
+    else:
+        valor = new_scorer(linea)
+        mp.put(teams, linea, valor)
+    lt.addLast(valor["partidos"],team)
 
 # Funciones para creacion de datos
 
@@ -213,3 +250,39 @@ def sort(data_structs):
     """
     #TODO: Crear función de ordenamiento
     pass
+
+def sortear_fecha(datos):
+    datos = datos[0]
+    goles = datos["goles"]
+    results = datos["results"]
+    shootouts = datos["shootout"]
+
+    sorted_list = (quk.sort(goles, compare_goalscorers), quk.sort(results, compare_results), quk.sort(shootouts, compare_shootouts))
+    datos["goles"] = sorted_list[0]
+    datos["results"] = sorted_list[1]
+    datos["shootout"] = sorted_list[2]
+    return sorted_list
+
+def compare_goalscorers(goles1, goles2):
+    if goles1["date"] > goles2["date"]:
+        return goles1["date"]>goles2["date"]
+    
+    elif goles1["date"] == goles2["date"]:
+        if goles1["minute"]>goles2["minute"]:
+            return goles1["minute"]>goles2["minute"]
+        elif goles1["minute"]==goles2["minute"]:
+            return goles1["scorer"]>goles2["scorer"]
+
+def compare_results(results1, results2):
+    if results1["date"] > results2["date"]:
+        return results1["date"]>results2["date"]
+    
+    elif results1["date"] == results2["date"]:
+        return results1["home_score"]>results2["home_score"]
+
+def compare_shootouts(s1, s2):
+    if s1["date"] > s2["date"]:
+        return s1["date"]>s2["date"]
+    
+    elif s1["date"] == s2["date"]:
+        return s1["home_team"]>s2["home_team"]

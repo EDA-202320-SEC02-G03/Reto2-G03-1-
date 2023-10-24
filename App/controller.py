@@ -25,7 +25,7 @@ import model
 import time
 import csv
 import tracemalloc
-
+from DISClib.ADT import list as lt
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
@@ -43,20 +43,26 @@ def new_controller():
 
 
 # Funciones para la carga de datos
+def load_first(control, filename):
+    datos = control["model"][0]
+    loadGoles(datos, filename)
+    loadResults(datos, filename)
+    loadShootout(datos, filename)
 
-def load_data(control, filename, memflag=True):
+def load_data(control, goles, memflag=True):
     """
     Carga los datos del reto
     """
+    data_structs = control["model"][1]
     start_time = get_time()
 
     # inicializa el proceso para medir memoria
     if memflag is True:
         tracemalloc.start()
         start_memory = get_memory()
-
     
-
+    loadscorers(data_structs,goles)
+    
     # toma el tiempo al final del proceso
     stop_time = get_time()
     # calculando la diferencia en tiempo
@@ -75,8 +81,29 @@ def load_data(control, filename, memflag=True):
         # respuesta sin medir memoria
         return deltatime
 
+def loadGoles (new_data_structs, filename):
+    goalfile = cf.data_dir + filename[0]
+    input_file = csv.DictReader(open(goalfile, encoding='utf-8'))
+    for goals in input_file:
+        model.add_goles(new_data_structs, goals)
+    
 
+def loadResults(new_data_structs, filename):
+    resultsfile = cf.data_dir + filename[1]
+    input_file = csv.DictReader(open(resultsfile, encoding='utf-8'))
+    for results in input_file:
+        model.add_results(new_data_structs, results)
+    
 
+def loadShootout(new_data_structs, filename):
+    shootoutfile = cf.data_dir + filename[2]
+    input_file = csv.DictReader(open(shootoutfile, encoding='utf-8'))
+    for shootout in input_file:
+        model.add_shootout(new_data_structs, shootout)
+
+def loadscorers(data_structs,goles):
+    for cada_uno in lt.iterator(goles):
+        model.add_scorer(data_structs, cada_uno)
 # Funciones de ordenamiento
 
 def sort(control):
@@ -86,6 +113,9 @@ def sort(control):
     #TODO: Llamar la función del modelo para ordenar los datos
     pass
 
+def sort_fecha(control):
+    sortear = model.sortear_fecha(control["model"])
+    return sortear
 
 # Funciones de consulta sobre el catálogo
 

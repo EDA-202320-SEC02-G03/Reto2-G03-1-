@@ -62,13 +62,18 @@ def print_menu():
     print("0- Salir")
 
 
-def load_data(control):
+def load_data(control, goles):
     """
     Carga los datos
     """
-    #TODO: Realizar la carga de datos
-    pass
+    return controller.load_data(control, goles) 
 
+def load_first(control):
+    """
+    Carga los datos
+    """
+    filename = ('football/goalscorers-utf8-large.csv', 'football/results-utf8-large.csv', 'football/shootouts-utf8-large.csv')
+    return controller.load_first(control, filename)
 
 def print_data(control, id):
     """
@@ -156,7 +161,10 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs) == 1:
             print("Cargando información de los archivos ....\n")
-            data = load_data(control)
+            data = load_first(control)
+            sorteado = controller.sort_fecha(control)
+            load_data(control, sorteado[0])
+            print(control["model"][1])
         elif int(inputs) == 2:
             print_req_1(control)
 
