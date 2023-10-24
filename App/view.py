@@ -86,8 +86,11 @@ def print_req_1(control):
     """
         Función que imprime la solución del Requerimiento 1 en consola
     """
-    # TODO: Imprimir el resultado del requerimiento 1
-    pass
+    matches = int(input("Number of matches: "))
+    team = input("Team name: ")
+    condition = input("Team condition: ")
+    a = controller.req_1(control, matches, team, condition)
+    return a
 
 
 def print_req_2(control):
@@ -164,9 +167,9 @@ if __name__ == "__main__":
             data = load_first(control)
             sorteado = controller.sort_fecha(control)
             load_data(control, sorteado[0], sorteado[1])
-            print(control["model"][1]['tournament'])
+            print("Cargado con exito")
         elif int(inputs) == 2:
-            print_req_1(control)
+            print(print_req_1(control))
 
         elif int(inputs) == 3:
             print_req_2(control)

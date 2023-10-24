@@ -133,7 +133,7 @@ def add_home(data_structs, home_team):
     else:
         valor = new_home(linea)
         mp.put(team, linea, valor)
-    lt.addLast(valor["partidos"],team)
+    lt.addLast(valor["partidos"],home_team)
 
 def new_home(home_team):
     entry = {'home_team': "", "partidos": None}
@@ -151,7 +151,7 @@ def add_away(data_structs, away_team):
     else:
         valor = new_away(linea)
         mp.put(team, linea, valor)
-    lt.addLast(valor["partidos"],team)
+    lt.addLast(valor["partidos"],away_team)
 
 def new_away(away_team):
     entry = {'away_team': "", "partidos": None}
@@ -204,12 +204,14 @@ def data_size(data_structs):
     pass
 
 
-def req_1(data_structs):
+def req_1(data_structs, matches, team, condition):
     """
     Función que soluciona el requerimiento 1
     """
-    # TODO: Realizar el requerimiento 1
-    pass
+    if condition == 'home':
+        a = mp.get(data_structs['home'], team)
+        b = me.getValue(a)
+        return b
 
 
 def req_2(data_structs):

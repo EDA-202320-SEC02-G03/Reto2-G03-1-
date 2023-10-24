@@ -142,12 +142,13 @@ def get_data(control, id):
     pass
 
 
-def req_1(control):
+def req_1(control, matches, team, condition):
     """
     Retorna el resultado del requerimiento 1
     """
-    # TODO: Modificar el requerimiento 1
-    pass
+
+    a = model.req_1(control["model"][1], matches, team, condition)
+    return a
 
 
 def req_2(control):
