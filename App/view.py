@@ -117,7 +117,21 @@ def print_req_3(control):
         Función que imprime la solución del Requerimiento 3 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 3
-    pass
+    print("=============== Req No. 3 Inputs ===============")
+    equipo = input("Team name: ")
+    inicio = input("Start date:")
+    final = input("End date: ")
+    print("=============== Req No. 3 Results ===============")
+    head = ["date","home_score","away_score","home_team","away_team","country","city","tournament","penalty","own_goal"]
+    solreq3,size,z,k,t= controller.req_3(control,equipo,inicio,final)
+    delta_time = f"{t:.3f}"
+    tabla = controller.tabular(solreq3,head)
+    fin = tabulate(tabla,headers=head,tablefmt="grid")
+    print(equipo+ " Total games: " + size)
+    print(equipo+ " Total home games: "+ str(z))
+    print(equipo+ " Total away games: "+str(k))
+    print("Para", equipo, "entre",inicio,"y",final, "delta tiempo:", str(delta_time),"[ms]")
+    return fin
 
 
 def print_req_4(control):
