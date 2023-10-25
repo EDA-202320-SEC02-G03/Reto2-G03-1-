@@ -125,9 +125,9 @@ def print_req_4(control):
         Función que imprime la solución del Requerimiento 4 en consola
     """
     head = ["date","tournament","country","city","home_team","home_team","away_team","home_score","away_score","winner"]
-    start = "1955-06-01"
-    end = "2022-06-30"
-    tournament = "Copa América"
+    start = input("Start date: ")
+    end = input("End date: ")
+    tournament = input("Tournament name: ")
     a = controller.req_4(control, tournament, start, end)
     tab = controller.tabular(a, head)
     t = tabulate(tab,headers="keys",tablefmt="grid",maxcolwidths = [10,13,13,10,10,20])
