@@ -303,8 +303,8 @@ def req_6(data_structs):
     """
     Función que soluciona el requerimiento 6
     """
-    # TODO: Realizar el requerimiento 6
-    pass
+    filtro_torneo = data_structs['tournament']['partidos']
+    
 
 
 def req_7(data_structs):
