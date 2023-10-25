@@ -51,14 +51,14 @@ def new_controller():
 def print_menu():
     print("Bienvenido")
     print("1- Cargar información")
-    print("2- Ejecutar Requerimiento 1")
-    print("3- Ejecutar Requerimiento 2")
-    print("4- Ejecutar Requerimiento 3")
-    print("5- Ejecutar Requerimiento 4")
-    print("6- Ejecutar Requerimiento 5")
-    print("7- Ejecutar Requerimiento 6")
-    print("8- Ejecutar Requerimiento 7")
-    print("9- Ejecutar Requerimiento 8")
+    print("2- Listar los últimos N partidos de un equipo")
+    print("3- Listar los primeros N goles anotados por un jugador")
+    print("4- Consultar los partidos que disputó un equipo durante un periodo")
+    print("5- Consultar los partidos relacionados con un torneo durante un periodo")
+    print("6- Consultar las anotaciones de un jugador durante un periodo")
+    print("7- Clasificar los N mejores equipos de un torneo en un periodo")
+    print("8- Clasificar los N mejores anotadores en partidos oficiales dentro de un periodo")
+    print("9- Comparar el desempeño histórico de dos selecciones en torneos oficiales")
     print("0- Salir")
 
 
