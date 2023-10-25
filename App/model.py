@@ -232,12 +232,50 @@ def req_2(data_structs, scores, player_name):
     
 
 
-def req_3(data_structs):
+def req_3(data_structs,equipo, start,end):     
     """
     Función que soluciona el requerimiento 3
     """
     # TODO: Realizar el requerimiento 3
-    pass
+    lista1 = lt.newList("ARRAY_LIST")
+    homesize = 0
+    awaysize = 0
+    equiposa = mp.get(data_structs["away"],equipo)
+    equiposh = mp.get(data_structs["home"],equipo)
+    partidoa= me.getValue(equiposa)["partidos"]
+    partidoh = me.getValue(equiposh)["partidos"]
+    #goles = mp.get(data_structs["scorers"],equipo)
+    #fgoles = me.getValue(goles)["partidos"]
+    for i in lt.iterator(partidoa):
+        if i["date"]>= start and i["date"]<= end:
+            #i["penalty"]=="Unknown"
+            #i["own_goal"]=="Unknown"
+            #for k in lt.iterator(fgoles):
+                #if k["date"]>= start and k["date"]<= end:
+                    #k["penalty"]==i["penalty"]
+                    #k["own_goal"]==i["own_goal"]
+            awaysize+=1
+            lt.addLast(lista1,i)
+    for j in lt.iterator(partidoh):
+        if j["date"]>= start and j["date"]<= end:
+            #j["penalty"]=="Unknown"
+            #j["own_goal"]=="Unknown"
+            #for p in lt.iterator(fgoles):
+                #if p["date"]>= start and k["date"]<= end:
+                    #p["penalty"]==j["penalty"]
+                    #p["own_goal"]==j["own_goal"]
+            homesize+=1
+            lt.addLast(lista1,j)
+    size = lt.size(lista1)
+    listaordenada = quk.sort(lista1,compare_results)
+    x = lt.newList("ARRAY_LIST")
+    lt.addLast(x, lt.getElement(listaordenada, 1))
+    lt.addLast(x, lt.getElement(listaordenada, 2))
+    lt.addLast(x, lt.getElement(listaordenada, 3))
+    lt.addLast(x, lt.getElement(listaordenada, lt.size(listaordenada)-2))           
+    lt.addLast(x, lt.getElement(listaordenada, lt.size(listaordenada)-1))
+    lt.addLast(x, lt.getElement(listaordenada, lt.size(listaordenada)))
+    return x,size,homesize,awaysize
 
 
 def req_4(data_structs, tournament, start, end):
