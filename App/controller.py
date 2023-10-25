@@ -30,6 +30,7 @@ from DISClib.ADT import list as lt
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
+csv.field_size_limit(2147483647)
 
 def new_controller():
     """
@@ -246,3 +247,10 @@ def delta_memory(stop_memory, start_memory):
 def tabular(lista, headers):
     a = model.lista_reqs(lista, headers)
     return a
+
+def lista_tabulate(sorted_list, headers):
+    list_to_print = model.lista_tabulate(sorted_list, headers)
+    return list_to_print
+def tabla(lista):
+    s3 = model.tabla(lista)
+    return s3
