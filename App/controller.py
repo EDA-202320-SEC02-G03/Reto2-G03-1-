@@ -166,13 +166,13 @@ def req_3(control):
     pass
 
 
-def req_4(control):
+def req_4(control, tournament, start, end):
     """
     Retorna el resultado del requerimiento 4
     """
     # TODO: Modificar el requerimiento 4
-    pass
-
+    a = model.req_4(control['model'][1], tournament, start, end)
+    return a
 
 def req_5(control):
     """
@@ -242,3 +242,7 @@ def delta_memory(stop_memory, start_memory):
     # de Byte -> kByte
     delta_memory = delta_memory/1024.0
     return delta_memory
+
+def tabular(lista, headers):
+    a = model.lista_reqs(lista, headers)
+    return a

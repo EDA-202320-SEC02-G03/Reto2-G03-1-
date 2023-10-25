@@ -72,7 +72,7 @@ def load_first(control):
     """
     Carga los datos
     """
-    filename = ('football/goalscorers-utf8-large.csv', 'football/results-utf8-large.csv', 'football/shootouts-utf8-large.csv')
+    filename = ('football/goalscorers-utf8-small.csv', 'football/results-utf8-small.csv', 'football/shootouts-utf8-small.csv')
     return controller.load_first(control, filename)
 
 def print_data(control, id):
@@ -114,9 +114,15 @@ def print_req_4(control):
     """
         Función que imprime la solución del Requerimiento 4 en consola
     """
-    # TODO: Imprimir el resultado del requerimiento 4
-    pass
+    head = ["date","tournament","country","city","home_team","home_team","away_team","home_score","away_score","winner"]
+    start = "1955-06-01"
+    end = "2022-06-30"
+    tournament = "Copa América"
+    a = controller.req_4(control, tournament, start, end)
+    tab = controller.tabular(a, head)
+    t = tabulate(tab,headers="keys",tablefmt="grid",maxcolwidths = [10,13,13,10,10,20])
 
+    return print(t)
 
 def print_req_5(control):
     """

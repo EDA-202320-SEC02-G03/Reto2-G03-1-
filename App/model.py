@@ -169,7 +169,7 @@ def add_tournament(data_structs, tournament):
     else:
         valor = new_tournament(linea)
         mp.put(team, linea, valor)
-    lt.addLast(valor["partidos"],team)
+    lt.addLast(valor["partidos"],tournament)
 
 def new_tournament(tournament):
     entry = {'tournament': "", "partidos": None}
@@ -240,12 +240,24 @@ def req_3(data_structs):
     pass
 
 
-def req_4(data_structs):
+def req_4(data_structs, tournament, start, end):
     """
     Función que soluciona el requerimiento 4
     """
-    # TODO: Realizar el requerimiento 4
-    pass
+    c = lt.newList("ARRAY_LIST")
+    a = mp.get(data_structs['tournament'],tournament)
+    b = me.getValue(a)['partidos']
+    for cu in lt.iterator(b):
+        if cu["date"] >= start and cu["date"] <= end:
+                lt.addLast(c, cu)
+    x = lt.newList("ARRAY_LIST")
+    lt.addLast(x, lt.getElement(c, 1))
+    lt.addLast(x, lt.getElement(c, 2))
+    lt.addLast(x, lt.getElement(c, 3))
+    lt.addLast(x, lt.getElement(c, lt.size(c)-2))           
+    lt.addLast(x, lt.getElement(c, lt.size(c)-1))
+    lt.addLast(x, lt.getElement(c, lt.size(c)))
+    return x
 
 
 def req_5(data_structs):
@@ -348,3 +360,21 @@ def compare_shootouts(s1, s2):
     
     elif s1["date"] == s2["date"]:
         return s1["home_team"]>s2["home_team"]
+    
+def lista_reqs(lista, headers):
+    t2 = {}
+    final = {}   
+    for header in headers:
+        t1 = []
+        for elemento in lt.iterator(lista):
+            if header not in elemento:
+                elemento[header] = "Unknown"
+            else:
+                t1.append(elemento[header])
+        t2[header] = t1  
+    for header in headers:
+        if len(t2[header]) < 6:
+            final = t2
+        else:
+            final[header] = [t2[header][0], t2[header][1], t2[header][2], t2[header][-3], t2[header][-2],t2[header][-1]]
+    return final
