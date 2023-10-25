@@ -210,13 +210,27 @@ def req_1(data_structs, matches, team, condition):
     """
     if condition == 'home':
         a = mp.get(data_structs['home'], team)
-        b = lt.subList(me.getValue(a)['partidos'],1,matches)
+        b = me.getValue(a)['partidos']
+        if lt.size(b) < matches:
+            c = lt.subList(b, 1, lt.size(b))
+        else:
+            c = lt.subList(b, 1, matches)
         
     elif condition == 'away':
         a = mp.get(data_structs['away'], team)
-        b = lt.subList(me.getValue(a)['partidos'],1,matches)
-    
-    return b
+        b = me.getValue(a)['partidos']
+        if lt.size(b) < matches:
+            c = lt.subList(b, 1, lt.size(b))
+        else:
+            c = lt.subList(b, 1, matches)
+    x = lt.newList("ARRAY_LIST")
+    lt.addLast(x, lt.getElement(c, 1))
+    lt.addLast(x, lt.getElement(c, 2))
+    lt.addLast(x, lt.getElement(c, 3))
+    lt.addLast(x, lt.getElement(c, lt.size(c)-2))           
+    lt.addLast(x, lt.getElement(c, lt.size(c)-1))
+    lt.addLast(x, lt.getElement(c, lt.size(c)))
+    return x
 
 def req_2(data_structs, scores, player_name):
     """
@@ -226,8 +240,21 @@ def req_2(data_structs, scores, player_name):
     b = me.getValue(a)['partidos']
     lon = lt.size(b)
     x = lon - scores
-    c = lt.subList(b, x, scores)
-    return c
+    if lon < scores:
+        c = b
+    else:
+        c = lt.subList(b, x, scores)
+    if lt.size(c) >= 6:
+        x = lt.newList("ARRAY_LIST")
+        lt.addLast(x, lt.getElement(c, 1))
+        lt.addLast(x, lt.getElement(c, 2))
+        lt.addLast(x, lt.getElement(c, 3))
+        lt.addLast(x, lt.getElement(c, lt.size(c)-2))           
+        lt.addLast(x, lt.getElement(c, lt.size(c)-1))
+        lt.addLast(x, lt.getElement(c, lt.size(c)))
+        return x
+    else:
+        return c
     
     
 
@@ -378,3 +405,24 @@ def lista_reqs(lista, headers):
         else:
             final[header] = [t2[header][0], t2[header][1], t2[header][2], t2[header][-3], t2[header][-2],t2[header][-1]]
     return final
+
+def lista_tabulate(sorted_list, headers):
+    list_to_print=[]
+    for element in lt.iterator(sorted_list):
+        temporal=[]
+        for header in headers:
+            temporal.append(element[header])
+        list_to_print.append(temporal)
+    return list_to_print
+def tabla(lista):
+    if len(lista) <= 7:
+        s3 = lista
+    else:
+        l1 = lista[0]
+        l2 = lista[1]
+        l3 = lista[2]
+        l4 = lista[-3]
+        l5 = lista[-2]
+        l6 = lista[-1]
+        s3 = [l1, l2, l3, l4, l5, l6]
+    return s3

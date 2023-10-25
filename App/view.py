@@ -86,21 +86,28 @@ def print_req_1(control):
     """
         Función que imprime la solución del Requerimiento 1 en consola
     """
+    head = ["date","home_team","away_team","home_score","away_score","country","city","tournament"]
     matches = int(input("Number of matches: "))
     team = input("Team name: ")
     condition = input("Team condition: ")
     a = controller.req_1(control, matches, team, condition)
-    return a
+    tab = controller.tabular(a, head)
+    t = tabulate(tab,headers="keys",tablefmt="grid",maxcolwidths = [10,13,13,10,10,20])
+    return t
 
 
 def print_req_2(control):
     """
         Función que imprime la solución del Requerimiento 2 en consola
     """
+    head = ["date","home_team","away_team","team","scorer","minute","own_goal","penalty"]
     scores = int(input("Number of scores: "))
     player_name = input("Player name: ")
     a = controller.req_2(control, scores, player_name)
-    return print(a)
+    t2 = controller.lista_tabulate(a, head)
+    tabulate_results = controller.tabla(t2)
+    t = tabulate(tabulate_results,headers= head,tablefmt="grid",maxcolwidths = [10,13,13,10,10,20])
+    return print(t)
 
 def print_req_3(control):
     """
