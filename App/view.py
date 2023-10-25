@@ -75,7 +75,7 @@ def load_first(control):
     """
     Carga los datos
     """
-    filename = ('football/goalscorers-utf8-small.csv', 'football/results-utf8-small.csv', 'football/shootouts-utf8-small.csv')
+    filename = ('football/goalscorers-utf8-large.csv', 'football/results-utf8-large.csv', 'football/shootouts-utf8-large.csv')
     return controller.load_first(control, filename)
 
 def print_data(control, id):
