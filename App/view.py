@@ -117,22 +117,8 @@ def print_req_3(control):
         Función que imprime la solución del Requerimiento 3 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 3
-    print("================ Req No.3 Inputs ================")
-    #equipo = input("Team name: ")
-    #start = input("Start Date: ")
-    #end = input("End Date: ")
-    start = "1939-01-01"
-    end = "2018-12-31"
-    equipo = "Italy"
-    print("================ Req No.3 Results ================")
-    head = ["date","home_score","away_score","home_team","away_team","country","city","tournament","penalty","own_goal"]
-    a,size,homesize,awaysize = controller.req_3(control,equipo,start,end)
-    print("Total games for "+equipo+":",size)
-    print("Total home games for "+equipo+":",homesize)
-    print("Total away games for "+equipo+":",awaysize)
-    tab = controller.tabular(a,head)
-    t = tabulate(tab,headers = "keys",tablefmt = "grid", maxcolwidths = [10,13,13,10,10,20])
-    return print(t)
+    pass
+
 
 def print_req_4(control):
     """
@@ -160,8 +146,7 @@ def print_req_6(control):
     """
         Función que imprime la solución del Requerimiento 6 en consola
     """
-    # TODO: Imprimir el resultado del requerimiento 6
-    pass
+    
 
 
 def print_req_7(control):
