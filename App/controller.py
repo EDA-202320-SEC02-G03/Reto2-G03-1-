@@ -30,6 +30,7 @@ from DISClib.ADT import list as lt
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
+csv.field_size_limit(2147483647)
 
 def new_controller():
     """

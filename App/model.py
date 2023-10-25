@@ -287,13 +287,17 @@ def req_4(data_structs, tournament, start, end):
     return x
 
 
-def req_5(data_structs):
+def req_5(data_structs, player_name, start, end):
     """
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
-    pass
-
+    c = lt.newList("ARRAY_LIST")
+    a = mp.get(data_structs['scorers'], player_name)
+    b = me.getValue(a)['partidos']
+    for cu in lt.iterator(b):
+        if cu["date"] >= start and cu["date"] <= end:
+            lt.addLast(c, cu)
 
 def req_6(data_structs):
     """
