@@ -165,7 +165,7 @@ def req_3(control,equipo,start,end):
     """
     # TODO: Modificar el requerimiento 3
     start_time = get_time()
-    x,size,homesize,awaysize,t = model.req_3(control["model"][1],equipo,start,end)
+    x,size,homesize,awaysize = model.req_3(control["model"][1],equipo,start,end)
     end_time = get_time()
     deltatime = delta_time(start_time,end_time)
     return x,size,homesize,awaysize,deltatime
